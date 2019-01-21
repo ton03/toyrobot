@@ -1,0 +1,4 @@
+# first example
+PLACE 0,0,NORTH
+MOVE
+REPORT
