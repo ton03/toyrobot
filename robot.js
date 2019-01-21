@@ -100,16 +100,14 @@ const Robot = {
         parseInt(yOrigin, 10), // staring Y
         direction // default direction
       );
-    } else if (!this.hasBeenPlaced) {
-      throw Error('First command must be PLACE');
-    } else if (command === 'MOVE') {
-      this.move();
-    } else if (command === 'LEFT' || command === 'RIGHT') {
-      this.turn(command);
-    } else if (command === 'REPORT') {
-      this.report();
-    } else {
-      throw Error(`Unrecognized command: ${ command }`);
+    } else if (this.hasBeenPlaced) {
+      if (command === 'MOVE') {
+        this.move();
+      } else if (command === 'LEFT' || command === 'RIGHT') {
+        this.turn(command);
+      } else if (command === 'REPORT') {
+        this.report();
+      }
     }
   }
 };
