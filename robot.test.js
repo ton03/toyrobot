@@ -36,6 +36,11 @@ describe('Set Robot position and table bounds', () => {
     expect(robot.xBounds).toBe(10);
     expect(robot.yBounds).toBe(20);
   });
+
+  test('error when first command anything other than PLACE', () => {
+    expect(() => robot.processCommand('MOVE'))
+      .toThrow(/^First command must be PLACE$/);
+  });
 });
 
 describe('Robot reporting its position', () => {
@@ -152,13 +157,9 @@ describe('Simple robot movement and turning', () => {
     expect(() => robot.turn('KANYE')).toThrow(/^Invalid direction: KANYE$/);
   });
 
-  test('ignore unrecognized command; robot stays put', () => {
-    robot.setPosition(1, 2, 'WEST');
-    robot.processCommand('DAB');
-    robot.processCommand('FORTNITE');
-    expect(robot.xPos).toBe(1);
-    expect(robot.yPos).toBe(2);
-    expect(robot.dir).toBe('WEST');
+  test('error when processing an unknown command', () => {
+    robot.setPosition(0, 0, 'NORTH');
+    expect(() => robot.processCommand('DAB')).toThrow(/^Unrecognized command: DAB$/);
   });
 });
 

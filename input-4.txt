@@ -1,4 +1,3 @@
-# spiral from middle to (0, 0)
 PLACE 2,2,SOUTH
 MOVE
 RIGHT

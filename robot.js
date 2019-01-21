@@ -7,6 +7,7 @@ const Robot = {
   dir: 'NORTH',
   xBounds: 5,
   yBounds: 5,
+  hasBeenPlaced: false,
 
   /**
    * Sets the position of the robot and direction where it is facing
@@ -18,6 +19,7 @@ const Robot = {
     this.xPos = xPos;
     this.yPos = yPos;
     this.dir = dir;
+    this.hasBeenPlaced = true;
   },
 
   /**
@@ -98,12 +100,16 @@ const Robot = {
         parseInt(yOrigin, 10), // staring Y
         direction // default direction
       );
+    } else if (!this.hasBeenPlaced) {
+      throw Error('First command must be PLACE');
     } else if (command === 'MOVE') {
       this.move();
     } else if (command === 'LEFT' || command === 'RIGHT') {
       this.turn(command);
     } else if (command === 'REPORT') {
       this.report();
+    } else {
+      throw Error(`Unrecognized command: ${ command }`);
     }
   }
 };
