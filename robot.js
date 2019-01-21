@@ -5,6 +5,8 @@ const Robot = {
   xPos: 0,
   yPos: 0,
   dir: 'NORTH',
+  xBounds: 5,
+  yBounds: 5,
 
   /**
    * Sets the position of the robot and direction where it is facing
@@ -54,7 +56,7 @@ const Robot = {
         this.xPos -= (this.xPos > 0 ? 1 : 0);
         return;
       default:
-        throw Error(`Unknown direction ${this.dir}`);
+        throw Error(`Robot is facing an invalid direction: ${this.dir}`);
     }
   },
 
@@ -63,6 +65,9 @@ const Robot = {
    * @param {string} direction LEFT or RIGHT turn
    */
   turn(direction) {
+    if (direction !== 'LEFT' && direction !== 'RIGHT') {
+      throw Error(`Unknown direction: ${direction}`);
+    }
     switch(this.dir) {
       case 'NORTH':
         this.dir = (direction === 'LEFT') ? 'WEST' : 'EAST';
@@ -77,7 +82,7 @@ const Robot = {
         this.dir = (direction === 'LEFT') ? 'SOUTH' : 'NORTH';
         return;
       default:
-        throw Error(`Unknown direction ${this.dir}`);
+        throw Error(`Robot is facing an invalid direction: ${this.dir}`);
     }
   },
 
