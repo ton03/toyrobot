@@ -1,0 +1,15 @@
+{
+  "name": "robot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "robot.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Antonn Esquivel",
+  "license": "ISC",
+  "testEnvironment": "node",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
