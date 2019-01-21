@@ -36,6 +36,14 @@ describe('Set Robot position and table bounds', () => {
     expect(robot.xBounds).toBe(10);
     expect(robot.yBounds).toBe(20);
   });
+
+  test('ignore when setting invalid bounds', () => {
+    robot.setPosition(0, 0, 'NORTH');
+    robot.setPosition(99, -99, 'KANYE');
+    expect(robot.xPos).toBe(0);
+    expect(robot.yPos).toBe(0);
+    expect(robot.dir).toBe('NORTH');
+  });
 });
 
 describe('Robot reporting its position', () => {
@@ -51,9 +59,9 @@ describe('Robot reporting its position', () => {
   });
 
   test('report a pre-set robot position', () => {
-    robot.setPosition(6, 7, 'SOUTH');
+    robot.setPosition(3, 3, 'SOUTH');
     robot.report();
-    expect(consoleSpy).toHaveBeenCalledWith('6,7,SOUTH');
+    expect(consoleSpy).toHaveBeenCalledWith('3,3,SOUTH');
   });
 });
 
@@ -139,12 +147,12 @@ describe('Simple robot movement and turning', () => {
   });
 
   test('error when moving from an invalid direction', () => {
-    robot.setPosition(0, 0, 'KANYE');
+    robot.dir = 'KANYE';
     expect(() => robot.move()).toThrow(/^Robot is facing an invalid direction: KANYE$/);
   });
 
   test('error when turning from an invalid direction', () => {
-    robot.setPosition(0, 0, 'KANYE');
+    robot.dir = 'KANYE';
     expect(() => robot.turn('LEFT')).toThrow(/^Robot is facing an invalid direction: KANYE$/);
   });
 

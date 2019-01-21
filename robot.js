@@ -16,10 +16,15 @@ const Robot = {
    * @param {string} dir Default direction
    */
   setPosition(xPos, yPos, dir) {
-    this.xPos = xPos;
-    this.yPos = yPos;
-    this.dir = dir;
-    this.hasBeenPlaced = true;
+    const isValidXPos = xPos >= 0 && xPos < this.xBounds;
+    const isValidYPos = yPos >= 0 && yPos < this.yBounds;
+    const isValidDirection = dir === 'NORTH' || dir === 'SOUTH' || dir === 'EAST' || dir === 'WEST';
+    if (isValidXPos && isValidYPos && isValidDirection) {
+      this.xPos = xPos;
+      this.yPos = yPos;
+      this.dir = dir;
+      this.hasBeenPlaced = true;
+    }
   },
 
   /**
