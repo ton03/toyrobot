@@ -66,7 +66,7 @@ const Robot = {
    */
   turn(direction) {
     if (direction !== 'LEFT' && direction !== 'RIGHT') {
-      throw Error(`Unknown direction: ${direction}`);
+      throw Error(`Invalid direction: ${direction}`);
     }
     switch(this.dir) {
       case 'NORTH':

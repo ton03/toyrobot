@@ -137,6 +137,29 @@ describe('Simple robot movement and turning', () => {
     robot.turn('LEFT');
     expect(robot.dir).toBe('NORTH');
   });
+
+  test('error when moving from an invalid direction', () => {
+    robot.setPosition(0, 0, 'KANYE');
+    expect(() => robot.move()).toThrow(/^Robot is facing an invalid direction: KANYE$/);
+  });
+
+  test('error when turning from an invalid direction', () => {
+    robot.setPosition(0, 0, 'KANYE');
+    expect(() => robot.turn('LEFT')).toThrow(/^Robot is facing an invalid direction: KANYE$/);
+  });
+
+  test('error when turning to an invalid direction', () => {
+    expect(() => robot.turn('KANYE')).toThrow(/^Invalid direction: KANYE$/);
+  });
+
+  test('ignore unrecognized command; robot stays put', () => {
+    robot.setPosition(1, 2, 'WEST');
+    robot.processCommand('DAB');
+    robot.processCommand('FORTNITE');
+    expect(robot.xPos).toBe(1);
+    expect(robot.yPos).toBe(2);
+    expect(robot.dir).toBe('WEST');
+  });
 });
 
 describe('Prevent robot from falling off', () => {
@@ -180,6 +203,16 @@ describe('Moving and turning combination', () => {
     robot.move();
     expect(robot.xPos).toBe(1);
     expect(robot.yPos).toBe(1);
+  });
+
+  test('move a few times then teleport to a different location', () => {
+    robot.move();
+    robot.move();
+    robot.move();
+    robot.setPosition(3, 4, 'SOUTH');
+    expect(robot.xPos).toBe(3);
+    expect(robot.yPos).toBe(4);
+    expect(robot.dir).toBe('SOUTH');
   });
 
   test('zigzag from north west corner to south east corner', () => {
